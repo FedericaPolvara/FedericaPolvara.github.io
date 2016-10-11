@@ -111,7 +111,11 @@ footer {
 	text-align: center;
 }
 
+#box {
+	display: table-cell;
+	vertical-align:middle;
 
+}
 
 
 
