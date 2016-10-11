@@ -32,7 +32,7 @@ a {
 	height: 100%;
 	position:fixed;
 	top: 0px;
-	background: url(imgs/immagine_copertina-1.jpg);
+	background: url(imgs/immagine_copertina-2.jpg);
 	background-size: cover;
 	background-position: center;
 }
@@ -49,7 +49,7 @@ a {
 #banner h1 {
 	text-align: center;
 	padding-top: 26%;
-	font-family: futura, sans-serif;
+	font-family: roboto, sans-serif;
 	font-size: 300%;
 	color: rgba(255, 255, 255, 0.5);
 
