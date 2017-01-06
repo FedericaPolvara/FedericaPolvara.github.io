@@ -355,7 +355,7 @@ h5, h6          { font-weight: bolder }
 
 .main #contest{
 	display: block;
-	width: 80%;
+	width: 100%;
 	height: auto;
 	float: left;
 	position: relative;
@@ -371,10 +371,12 @@ h5, h6          { font-weight: bolder }
 	top: -22px;
 	background-color: #E6E6E6;
 	padding-top: 0px;
-	padding-right: 10%;
+	padding-right: 0%;
 	padding-bottom: 30px;
-	padding-left: 10%;
+	padding-left: 0%;
 }
+
+
 #contest .loghetti {
 	height: 100px;
 	width: 100px;

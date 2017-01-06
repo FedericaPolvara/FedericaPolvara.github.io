@@ -2,210 +2,389 @@
 <html lang="en">
 
 <head>
-	<!-- metatags -->
-	<meta charset="utf-8">
-	<meta name="verify-v1" content="05VDE4KpG1LWO8fVYT7C0TCBtvxBuQtYRT4DoS1obbo=" />
-	<title>Scriball &amp; Penna a Sfera</title>
-	<meta name="description" content="Penna a Sfera" />
-	<meta name="keywords" content="penna a sfera, scriball, penna, pennino, inchiostro, pen, biro," />
-	<meta name="argument" content="penna a sfera, ">
-	<meta name="language" content="italiano/italian" />
-	<meta name="copyright" content="Scriball" />
-	<meta name="robots" content="all, index, follow" />
-	<meta name="googlebot" content="index, follow" />
-	<meta name="revisit-after" content="5 days" />
-	<meta name="distribution" content="global" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <!-- metatags -->
+    <meta charset="utf-8">
+    <meta name="verify-v1" content="05VDE4KpG1LWO8fVYT7C0TCBtvxBuQtYRT4DoS1obbo=" />
+    <title>Scriball &amp; Penna a Sfera</title>
+    <meta name="description" content="Penna a Sfera" />
+    <meta name="keywords" content="penna a sfera, scriball, penna, pennino, inchiostro, pen, biro," />
+    <meta name="argument" content="penna a sfera, ">
+    <meta name="language" content="italiano/italian" />
+    <meta name="copyright" content="Scriball" />
+    <meta name="robots" content="all, index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="revisit-after" content="5 days" />
+    <meta name="distribution" content="global" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
 
-	<!-- JavaScript-->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
+    <!-- JavaScript-->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+
+
+    <!-- Canvas -->
+    <script type="text/javascript">
+        $(document).delegate('#Draw', 'pageinit', function() {
+            var __slice = Array.prototype.slice;
+            (function(a) {
+                var b;
+                return a.fn.sketch = function() {
+                    var c, d, e;
+                    d = arguments[0], c = 2 <= arguments.length ? __slice.call(arguments, 1) : [], this.length > 1 && a.error("Sketch.js can only be called on one element at a time."), e = this.data("sketch");
+                    if (typeof d != "string" || !e) return e ? e : (this.data("sketch", new b(this.get(0), d)), this);
+                    if (!e[d]) return a.error("Sketch.js did not recognize the given command.");
+                    if (typeof e[d] == "function") return e[d].apply(e, c);
+                    if (c.length === 0) return e[d];
+                    if (c.length === 1) return e[d] = c[0]
+                }, b = function() {
+                    function b(b, c) {
+                        this.el = b, this.canvas = a(b), this.context = b.getContext("2d"), this.options = a.extend({
+                            toolLinks: !0,
+                            defaultTool: "marker",
+                            defaultColor: "#000000",
+                            defaultSize: 2 //Dimensione pennello
+                        }, c), this.painting = !1, this.color = this.options.defaultColor, this.size = this.options.defaultSize, this.tool = this.options.defaultTool, this.actions = [], this.action = [], this.canvas.bind(
+                            "click mousedown mouseup mousemove mouseleave mouseout touchstart touchmove touchend touchcancel", this.onEvent), this.options.toolLinks && a("body").delegate('a[href="#' + this.canvas.attr("id") +
+                            '"]', "click",
+                            function(b) {
+                                var c, d, e, f, g, h, i;
+                                d = a(this), c = a(d.attr("href")), f = c.data("sketch"), i = ["color", "size", "tool"];
+                                for (g = 0, h = i.length; g < h; g++) e = i[g], d.attr("data-" + e) && f.set(e, a(this).attr("data-" + e));
+                                return a(this).attr("data-download") && f.download(a(this).attr("data-download")), !1
+                            })
+                    }
+                    return b.prototype.download = function(a) {
+                        var b;
+                        return a || (a = "png"), a === "jpg" && (a = "jpeg"), b = "image/" + a, window.open(this.el.toDataURL(b))
+                    }, b.prototype.set = function(a, b) {
+                        return this[a] = b, this.canvas.trigger("sketch.change" + a, b)
+                    }, b.prototype.startPainting = function() {
+                        return this.painting = !0, this.action = {
+                            tool: this.tool,
+                            color: this.color,
+                            size: parseFloat(this.size),
+                            events: []
+                        }
+                    }, b.prototype.stopPainting = function() {
+                        return this.action && this.actions.push(this.action), this.painting = !1, this.action = null, this.redraw()
+                    }, b.prototype.onEvent = function(b) {
+                        return b.originalEvent && b.originalEvent.targetTouches && (b.pageX = b.originalEvent.targetTouches[0].pageX, b.pageY = b.originalEvent.targetTouches[0].pageY), a.sketch.tools[a(this).data("sketch").tool].onEvent
+                            .call(a(this).data("sketch"), b), b.preventDefault(), !1
+                    }, b.prototype.redraw = function() {
+                        var b;
+                        this.el.width = this.canvas.width(), this.context = this.el.getContext("2d"), b = this, a.each(this.actions, function() {
+                            if (this.tool) return a.sketch.tools[this.tool].draw.call(b, this)
+                        });
+                        if (this.painting && this.action) return a.sketch.tools[this.action.tool].draw.call(b, this.action)
+                    }, b
+                }(), a.sketch = {
+                    tools: {}
+                }, a.sketch.tools.marker = {
+                    onEvent: function(a) {
+                        switch (a.type) {
+                            case "mousedown":
+                            case "touchstart":
+                                this.startPainting();
+                                break;
+                            case "mouseup":
+                            case "mouseout":
+                            case "mouseleave":
+                            case "touchend":
+                            case "touchcancel":
+                                this.stopPainting()
+                        }
+                        if (this.painting) return this.action.events.push({
+                            x: a.pageX - this.canvas.offset().left,
+                            y: a.pageY - this.canvas.offset().top,
+                            event: a.type
+                        }), this.redraw()
+                    },
+                    draw: function(a) {
+                        var b, c, d, e, f;
+                        this.context.lineJoin = "round", this.context.lineCap = "round", this.context.beginPath(), this.context.moveTo(a.events[0].x, a.events[0].y), f = a.events;
+                        for (d = 0, e = f.length; d < e; d++) b = f[d], this.context.lineTo(b.x, b.y), c = b;
+                        return this.context.strokeStyle = a.color, this.context.lineWidth = a.size, this.context.stroke()
+                    }
+                }, a.sketch.tools.eraser = {
+                    onEvent: function(b) {
+                        return a.sketch.tools.marker.onEvent.call(this, b)
+                    },
+                    draw: function(b) {
+                        var c;
+                        return c = this.context.globalCompositeOperation, this.context.globalCompositeOperation = "copy", b.color = "rgba(0,0,0,0)", a.sketch.tools.marker.draw.call(this, b), this.context.globalCompositeOperation =
+                            c
+                    }
+                }
+            })(jQuery)
+            /*
+            $.each(['#000', ], function() {
+                $('#Draw .tools').append("<a href='#can' data-color='" + this + "' style='width: 10px; background: " + this + ";'></a> ");
+            });
+            $.each([2], function() {
+                $('#Draw .tools').append("<a href='#can' data-size='" + this + "' style='background: #ccc'>" + this + "</a> ");
+            });
+            */
+
+            $('#can').sketch();
+            $('#Draw').trigger('create');
+        });
+    </script>
+
+    <style type="text/css">
+        body {
+            font-family: "raleway-regular", arial;
+            color: #444;
+        }
+
+        article h1 {
+            font-size: 26px;
+            margin: 0 0 15px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+        }
+
+        .tools {
+            margin-bottom: 10px;
+            float: left;
+            display: inline-flex;;
+
+
+        }
+
+        .tools a {
+
+
+            border: 1px solid black;
+            height: 50px;
+            line-height: 50px;
+            padding: 0 10px;
+            vertical-align: middle;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            color: black;
+            font-weight: bold;
+        }
+
+    </style>
+
 
 </head>
 
 
 
-<body>
+<body >
 
-	<header>
-		<div class="logo">
-			<a name="top" href="http://www.graphus.it">
-				<div id="logo"></div>
-			</a>
-		</div>
-		<!-- end logo -->
+    <header>
+        <div class="logo">
+            <a name="top" href="http://www.scriball.it">
+                <div id="logo"></div>
+            </a>
+        </div>
+        <!-- end logo -->
 
-		<div id="menu_icon"></div>
-		<nav>
-			<ul>
-				<li><a href="index.html" class="selected">Home</a></li>
-				<li><a href="#news">News</a></li>
-				<li><a href="#prodotti">Prodotti</a></li>
-				<li><a href="#contest">Contest</a></li>
-				<li><a href="#about">About Us</a></li>
-			</ul>
-		</nav>
-		<!-- end navigation menu -->
+        <div id="menu_icon"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="selected">Home</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#prodotti">Prodotti</a></li>
+                <li><a href="#contest">Contest</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </nav>
+        <!-- end navigation menu -->
 
-		<div class="footer clearfix">
-			<ul class="social clearfix">
-				<li>
-					<a href="https://www.copycampuslecco.it" class="fb" data-title="COPY" target="_blank"></a>
-				</li>
-				<li>
-					<a href="https://www.facebook.com/Scriball-193912284404845/?fref=ts" class="google" data-title="Facebook" target="_blank"></a>
-				</li>
-				<li>
-					<a href="#mappa" class="behance" data-title="Mappa"></a>
-				</li>
-				<li>
-					<a href="#info" class="twitter" data-title="Chiama"></a>
-				</li>
-			</ul>
-			<!-- end social -->
+        <div class="footer clearfix">
+            <ul class="social clearfix">
+                <li>
+                    <a href="https://www.copycampuslecco.it" class="fb" data-title="COPY" target="_blank"></a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/Scriball-193912284404845/?fref=ts" class="google" data-title="Facebook" target="_blank"></a>
+                </li>
+                <li>
+                    <a href="#mappa" class="behance" data-title="Mappa"></a>
+                </li>
+                <li>
+                    <a href="#info" class="twitter" data-title="Chiama"></a>
+                </li>
+            </ul>
+            <!-- end social -->
 
-			<div class="rights">
-				<p>Scriball KKT - Made in Hungary</p>
-			</div>
-			<!-- end rights -->
-
-
-		</div>
-		<!-- end footer -->
-	</header>
-	<!-- end header -->
+            <div class="rights">
+                <p>Scriball KKT - Made in Hungary</p>
+            </div>
+            <!-- end rights -->
 
 
-
-	<section class="main clearfix">
-		<div class="work">
-			<a href="#news">
-				<img src="img/work1.jpg" class="media" alt="" />
-				<div class="caption">
-					<div class="work_title">
-						<h1>NEWS</em></h1>
-					</div>
-				</div>
-			</a>
-		</div>
-
-		<div class="work">
-			<a href="#prodotti">
-				<img src="img/work2.jpg" class="media" alt="" />
-				<div class="caption">
-					<div class="work_title">
-						<h1>PRODOTTI</h1>
-					</div>
-				</div>
-			</a>
-		</div>
+        </div>
+        <!-- end footer -->
+    </header>
+    <!-- end header -->
 
 
 
-		<div class="work">
-			<a href="#contest">
-				<img src="img/work3.jpg" class="media" alt="" />
-				<div class="caption">
-					<div class="work_title">
-						<h1>CONTEST</h1>
+    <section class="main clearfix">
+        <div class="work">
+            <a href="#news">
+                <img src="img/work1.jpg" class="media" alt="" />
+                <div class="caption">
+                    <div class="work_title">
+                        <h1>NEWS</em></h1>
+                    </div>
+                </div>
+            </a>
+        </div>
 
-
-
-					</div>
-				</div>
-			</a>
-		</div>
-
-		<div class="work">
-			<a href="#about">
-				<img src="img/work4.jpg" class="media" alt="" />
-				<div class="caption">
-					<div class="work_title">
-						<h1>ABOUT US</h1>
-					</div>
-				</div>
-			</a>
-		</div>
+        <div class="work">
+            <a href="#prodotti">
+                <img src="img/work2.jpg" class="media" alt="" />
+                <div class="caption">
+                    <div class="work_title">
+                        <h1>PRODOTTI</h1>
+                    </div>
+                </div>
+            </a>
+        </div>
 
 
 
 
 
-		<div id="news">
-			<a name="news"></a>
-			<div class="loghetti"></div>
-			<h1>MACCHINA COMUNICATIVA</h1>
-			<img src="img/macchina-comunicativa.png" class="media" alt="" />
-			<p></p>
-
-		</div>
-
-		<div id="prodotti">
-			<a name="prodotti"></a>
-			<div class="loghetti"></div>
-
-			<img src="img/pack-singolo.png" class="media" alt="" />
-			<p>
-				capire come mettere le 4 colonne, 4 foto e relativi 4 testi.
-
-				<!-- mettere 4 colonne e relativi 4 testi -->
+        <div class="work">
+            <a href="#contest">
+                <img src="img/work3.jpg" class="media" alt="" />
+                <div class="caption">
+                    <div class="work_title">
+                        <h1>CONTEST</h1>
 
 
-			</p>
-		</div>
+                    </div>
 
-		<div id="contest">
-			<a name="contest"></a>
-			<div class="loghetti"></div>
-			<h1>CREA IL TUO PATTERN!</h1>
-			<img src="img/texture.png" class="media" alt="" />
 
-			<p>Mandaci un tuo pattern creato con una <strong>Scriball!</strong>
-				<br/> L'utente con il maggior numero di voti lo vedrà riprodotto sul nuovo packaging <strong>Special Edition</strong>!</p>
 
-			<!--	<a href="#studenti">rimando a qualche altra sezione</a></strong>
+                </div>
+            </a>
+        </div>
+
+        <div class="work">
+            <a href="#about">
+                <img src="img/work4.jpg" class="media" alt="" />
+                <div class="caption">
+                    <div class="work_title">
+                        <h1>ABOUT US</h1>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+
+
+        <div id="news">
+            <a name="news"></a>
+            <div class="loghetti"></div>
+            <h1>MACCHINA COMUNICATIVA</h1>
+            <img src="img/macchina-comunicativa.png" class="media" alt="" />
+            <p></p>
+
+        </div>
+
+        <div id="prodotti">
+            <a name="prodotti"></a>
+            <div class="loghetti"></div>
+
+            <img src="img/pack-singolo.png" class="media" alt="" />
+            <p>
+                capire come mettere le 4 colonne, 4 foto e relativi 4 testi.
+
+                <!-- mettere 4 colonne e relativi 4 testi -->
+
+
+            </p>
+        </div>
+
+        <div id="contest">
+            <a name="contest"></a>
+            <div class="loghetti"></div>
+            <h1>CREA IL TUO PATTERN!</h1>
+            <img src="img/texture.png" class="media" alt="" />
+
+            <div class="canvas">
+                    <div id="Draw" data-url="Draw" data-role="page" />
+                    <div data-role="content" />
+
+                    <div class="tools">
+                        <a href="#can" data-tool="marker">Scriball</a>
+                        <a href="#can" data-tool="eraser">Cancella</a>
+                        <a href="#colors_sketch" data-download="png" style="float: right; width: 150px;">Invia e Scarica</a>
+
+                    </div>
+                    <canvas id="can" style="background-color: white; no-repeat center center;"></canvas>
+                    <script type="text/javascript">
+                        $(function() {
+                            $('#can').sketch({
+                                defaultColor: "#ff0"
+                            });
+                        });
+                    </script>
+            </div>
+
+            <p>Mandaci un tuo pattern creato con una <strong>Scriball!</strong>
+                <br/> L'utente con il maggior numero di voti lo vedrà riprodotto sul nuovo packaging <strong>Special Edition</strong>!</p>
+
+            <!--	<a href="#studenti">rimando a qualche altra sezione</a></strong>
 		si potrebbe creare una pagina fittizzia con tutte le texture già caricate, magari che rimanda alla pagina FB che è più semplice da fare.-->
 
-		</div>
+        </div>
 
 
 
-		<div id="about">
-			<a name="about"></a>
-			<div class="loghetti"></div>
-			<h1>TITOLO ABOUT</h1>
-			<p>L’era del digitale ha reso la grafìa piatta, impersonale. La biro rimane lo strumento che ancora mette in luce la nostra umanità: è sinonimo di indipendenza e libertà di espressione.
+        <div id="about">
+            <a name="about"></a>
+            <div class="loghetti"></div>
+            <h1>TITOLO ABOUT</h1>
+            <p>L’era del digitale ha reso la grafìa piatta, impersonale. La biro rimane lo strumento che ancora mette in luce la nostra umanità: è sinonimo di indipendenza e libertà di espressione.
 
-				<br/> <br/>
-				<img src="img/scriball-scritta-about.png" class="media" alt="" />
-				<br/> <br/> Con l’intento di incarnare questo filosofia, nel 2015 nasce una start-up produttrice di penne a sfera a Győr, vicino a Budapest, cuore pulsante dell’Ungheria e patria della biro, in quanto luogo in cui nacque il VERO inventore di questo
-				strumento: L. J. Bìro.
+                <br/> <br/>
+                <img src="img/scriball-scritta-about.png" class="media" alt="" />
+                <br/> <br/> Con l’intento di incarnare questo filosofia, nel 2015 nasce una start-up produttrice di penne a sfera a Győr, vicino a Budapest, cuore pulsante dell’Ungheria e patria della biro, in quanto luogo in cui nacque il VERO inventore
+                di questo strumento: L. J. Bìro.
 
-				<br/> <br/> <br/> Györ, Bartók Béla utca 1, <br/> 9024 Hungary <br/> +36 20 475 7667 <br/> info@scriball.com <br/>
-			</p>
+                <br/> <br/> <br/> Györ, Bartók Béla utca 1, <br/> 9024 Hungary <br/> +36 20 475 7667 <br/> info@scriball.com <br/>
+            </p>
 
-		</div>
-
-
-
-		<div id="mappa">
-
-			<a name="mappa" href="https://goo.gl/maps/YJhdqTv6A962" target="_blank" id="googlemaps"><img src="img/puntatore.png" alt="SCRIBALL" width="42" height="72" border="0"></a>
-
-		</div>
+        </div>
 
 
+
+        <div id="mappa">
+
+            <a name="mappa" href="https://goo.gl/maps/YJhdqTv6A962" target="_blank" id="googlemaps"><img src="img/puntatore.png" alt="SCRIBALL" width="42" height="72" border="0"></a>
+
+        </div>
 
 
 
 
 
-	</section>
-	<!-- end main -->
+
+
+    </section>
+    <!-- end main -->
 
 </body>
 
