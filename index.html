@@ -26,7 +26,7 @@
     <script type="text/javascript" src="js/main.js"></script>
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
- <script src='js/main.js'></script>
+ <script src='.../src/js/main.js'></script>
 
     <!-- Canvas -->
     <script type="text/javascript">
@@ -228,6 +228,31 @@
         });
     </script>
 
+    <script type="text/javascript">
+        $(function() {
+            $('#tools_sketch').sketch({
+                defaultColor: "#ff0"
+            });
+        });
+    </script>
+    <script type='text/javascript'>
+         $(function() {
+           $('#simple_sketch').sketch();
+         });
+       </script>
+       <script type='text/javascript'>
+      $(function() {
+        $.each(['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#000', '#fff'], function() {
+          $('#tools').append("<a href='#colored_sketch' data-color='" + this + "' style='border: 1px solid black; width: 30px; height: 30px; background: " + this + "; display: inline-block;'></a> ");
+        });
+        $('#colored_sketch').sketch();
+      });
+    </script>
+
+
+
+
+
     <style type="text/css">
         body {
             font-family: "raleway-regular", arial;
@@ -273,6 +298,15 @@
         }
 
     </style>
+
+
+
+
+
+
+
+
+
 
 
 </head>
@@ -431,13 +465,13 @@
     </div>
 
     <canvas id="tools_sketch" width="800" height="300" style="background-color: white; no-repeat center center;"></canvas>
-    <script type="text/javascript">
-        $(function() {
-            $('#tools_sketch').sketch({
-                defaultColor: "#ff0"
-            });
-        });
-    </script>
+
+
+
+    <canvas id='simple_sketch' width='400' height='400' style='border: 2px solid black'></canvas>
+
+    <div id='tools'></div>
+        <canvas id='colored_sketch' width='400' height='400' style='border: 2px solid black'></canvas>
 
 
 </div>
