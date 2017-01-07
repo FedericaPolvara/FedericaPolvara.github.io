@@ -123,6 +123,14 @@
                     }
                 }
             })(jQuery)
+
+
+
+
+
+
+
+
             /*
             $.each(['#000', ], function() {
                 $('#Draw .tools').append("<a href='#can' data-color='" + this + "' style='width: 10px; background: " + this + ";'></a> ");
@@ -140,31 +148,35 @@
     <style type="text/css">
         body {
             font-family: "raleway-regular", arial;
-            color: #444;
+            color: #ccc;
         }
 
         article h1 {
             font-size: 26px;
             margin: 0 0 15px;
+            font-family: "raleway-regular", arial;
         }
 
         canvas {
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 40%;
             border: 1px solid #ccc;
         }
 
+        #can{
+            width: 80%;
+            height: 40%;
+            border: 1px solid #ccc;
+        }
+
+
         .tools {
-            margin-bottom: 10px;
-            float: left;
-            display: inline-flex;;
-
-
+            margin-bottom: 5px;
+            float: center;
+            display: inline-flex;
         }
 
         .tools a {
-
-
             border: 1px solid black;
             height: 50px;
             line-height: 50px;
@@ -269,12 +281,7 @@
                 <div class="caption">
                     <div class="work_title">
                         <h1>CONTEST</h1>
-
-
                     </div>
-
-
-
                 </div>
             </a>
         </div>
@@ -323,33 +330,40 @@
             <h1>CREA IL TUO PATTERN!</h1>
             <img src="img/texture.png" class="media" alt="" />
 
-            <div class="canvas">
-                    <div id="Draw" data-url="Draw" data-role="page" />
-                    <div data-role="content" />
-
-                    <div class="tools">
-                        <a href="#can" data-tool="marker">Scriball</a>
-                        <a href="#can" data-tool="eraser">Cancella</a>
-                        <a href="#colors_sketch" data-download="png" style="float: right; width: 150px;">Invia e Scarica</a>
-
-                    </div>
-                    <canvas id="can" style="background-color: white; no-repeat center center;"></canvas>
-                    <script type="text/javascript">
-                        $(function() {
-                            $('#can').sketch({
-                                defaultColor: "#ff0"
-                            });
-                        });
-                    </script>
-            </div>
-
             <p>Mandaci un tuo pattern creato con una <strong>Scriball!</strong>
                 <br/> L'utente con il maggior numero di voti lo vedrà riprodotto sul nuovo packaging <strong>Special Edition</strong>!</p>
+
+                <div class="canvas">
+                        <div id="Draw" data-url="Draw" data-role="page" />
+                        <div data-role="content" />
+
+
+                        <div class="tools">
+                            <a href="#can" data-tool="marker">Scriball</a>
+                            <a href="#can" id="gomma" data-tool="eraser">Cancella</a>
+                            <a href="#can" data-download="png" style="float: right; width: 150px;">Invia e Scarica</a>
+
+                        </div>
+
+                        <canvas id="can" width="800" height="300" style="background-color: white; no-repeat center center;"></canvas>
+                        <script type="text/javascript">
+                            $(function() {
+                                $('#can').sketch({
+                                    defaultColor: "#ff0"
+                                });
+                            });
+                        </script>
+                </div>
+
+
 
             <!--	<a href="#studenti">rimando a qualche altra sezione</a></strong>
 		si potrebbe creare una pagina fittizzia con tutte le texture già caricate, magari che rimanda alla pagina FB che è più semplice da fare.-->
 
         </div>
+
+
+
 
 
 
@@ -376,11 +390,6 @@
             <a name="mappa" href="https://goo.gl/maps/YJhdqTv6A962" target="_blank" id="googlemaps"><img src="img/puntatore.png" alt="SCRIBALL" width="42" height="72" border="0"></a>
 
         </div>
-
-
-
-
-
 
 
     </section>

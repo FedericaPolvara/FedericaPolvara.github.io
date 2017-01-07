@@ -389,7 +389,8 @@ h5, h6          { font-weight: bolder }
 	margin-top: 30px;
 }
 #contest h1 {
-	color: #454545;
+	color: #FFF;
+    font-family: "raleway-regular", arial;
 }
 
 .main #about{
@@ -624,7 +625,7 @@ h5, h6          { font-weight: bolder }
 	padding-right: 60px;
 	padding-left: 60px;
 	padding-top: 100px;
-	position: absolute;
+	position: relative;
 }
 
 .content p{
