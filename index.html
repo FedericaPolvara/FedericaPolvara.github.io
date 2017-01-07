@@ -108,9 +108,14 @@
                     },
                     draw: function(a) {
                         var b, c, d, e, f;
-                        this.context.lineJoin = "round", this.context.lineCap = "round", this.context.beginPath(), this.context.moveTo(a.events[0].x, a.events[0].y), f = a.events;
+                        this.context.lineJoin = "round",
+                        this.context.lineCap = "round",
+                        this.context.beginPath(),
+                        this.context.moveTo(a.events[0].x, a.events[0].y), f = a.events;
                         for (d = 0, e = f.length; d < e; d++) b = f[d], this.context.lineTo(b.x, b.y), c = b;
-                        return this.context.strokeStyle = a.color, this.context.lineWidth = a.size, this.context.stroke()
+                        return this.context.strokeStyle = a.color,
+                        this.context.lineWidth = a.size,
+                        this.context.stroke()
                     }
                 }, a.sketch.tools.eraser = {
                     onEvent: function(b) {
@@ -123,10 +128,6 @@
                     }
                 }
             })(jQuery)
-
-
-
-
 
 
 
@@ -221,7 +222,7 @@
         <div class="footer clearfix">
             <ul class="social clearfix">
                 <li>
-                    <a href="https://www.copycampuslecco.it" class="fb" data-title="COPY" target="_blank"></a>
+                    <a href="https://www.facebook.com/Scriball-193912284404845/?fref=ts" class="fb" data-title="COPY" target="_blank"></a>
                 </li>
                 <li>
                     <a href="https://www.facebook.com/Scriball-193912284404845/?fref=ts" class="google" data-title="Facebook" target="_blank"></a>
@@ -328,32 +329,36 @@
             <a name="contest"></a>
             <div class="loghetti"></div>
             <h1>CREA IL TUO PATTERN!</h1>
-            <img src="img/texture.png" class="media" alt="" />
-
             <p>Mandaci un tuo pattern creato con una <strong>Scriball!</strong>
                 <br/> L'utente con il maggior numero di voti lo vedrà riprodotto sul nuovo packaging <strong>Special Edition</strong>!</p>
 
-                <div class="canvas">
-                        <div id="Draw" data-url="Draw" data-role="page" />
-                        <div data-role="content" />
 
 
-                        <div class="tools">
-                            <a href="#can" data-tool="marker">Scriball</a>
-                            <a href="#can" id="gomma" data-tool="eraser">Cancella</a>
-                            <a href="#can" data-download="png" style="float: right; width: 150px;">Invia e Scarica</a>
+<div id="tabella" style="; width: 100%; height: 100px;">
+    <div class="canvas" style="; width: 100%; height: 700px;">
 
-                        </div>
+            <div id="Draw" data-url="Draw" data-role="page" style="position: relative; width: 100%; height: auto;" />
+            <div data-role="content"  />
 
-                        <canvas id="can" width="800" height="300" style="background-color: white; no-repeat center center;"></canvas>
-                        <script type="text/javascript">
-                            $(function() {
-                                $('#can').sketch({
-                                    defaultColor: "#ff0"
-                                });
-                            });
-                        </script>
-                </div>
+
+    <div class="tools">
+        <a href="#can" data-tool="marker">Scriball</a>
+        <a href="#can" id="gomma" data-tool="eraser">Cancella</a>
+        <a href="#can" data-download="png" style="float: right; width: 150px;">Invia e Scarica</a>
+
+    </div>
+
+    <canvas id="can" width="800" height="300" style="background-color: white; no-repeat center center;"></canvas>
+    <script type="text/javascript">
+        $(function() {
+            $('#can').sketch({
+                defaultColor: "#ff0"
+            });
+        });
+    </script>
+</div>
+</div>
+
 
 
 
