@@ -170,7 +170,7 @@ var __slice = Array.prototype.slice;
     draw: function(action) {
       var oldcomposite;
       oldcomposite = this.context.globalCompositeOperation;
-      this.context.globalCompositeOperation = "copy";
+      this.context.globalCompositeOperation = "destination-out";
       action.color = "rgba(0,0,0,0)";
       $.sketch.tools.marker.draw.call(this, action);
       return this.context.globalCompositeOperation = oldcomposite;
