@@ -171,7 +171,7 @@ var __slice = Array.prototype.slice;
       var oldcomposite;
       oldcomposite = this.context.globalCompositeOperation;
       this.context.globalCompositeOperation = "copy";
-      action.color = "rgba(0,0,0,1)";
+      action.color = "rgba(0,0,0,0)";
       $.sketch.tools.marker.draw.call(this, action);
       return this.context.globalCompositeOperation = oldcomposite;
     }
